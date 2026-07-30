@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <windows.h>
+
+int main() {
+    printf("Current Process ID: %lu\n", GetCurrentProcessId());
+
+    STARTUPINFO si = { sizeof(si) };
+    PROCESS_INFORMATION pi;
+
+    if (CreateProcess(
+            NULL,
+            "notepad.exe",
+            NULL,
+            NULL,
+            FALSE,
+            0,
+            NULL,
+            NULL,
+            &si,
+            &pi)) {
+
+        printf("Child Process ID: %lu\n", pi.dwProcessId);
+    }
+    else {
+        printf("Process creation failed!\n");
+    }
+
+    return 0;
+}
